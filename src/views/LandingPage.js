@@ -19,7 +19,7 @@ function LandingPage() {
       </Row>
       <Row>
         <Col md={12} lg={6}>
-          <p className="display-4">Data just a click away</p>
+          <p className="display-4">Your data just a click away</p>
           <p className="lead">
             At <strong className="text-danger">Scrapper-Pro</strong> we take
             pride in building fast running, efficient scrapping scripts that

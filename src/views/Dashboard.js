@@ -4,8 +4,6 @@ import React from "react";
 import Header from "../components/Header";
 
 // Bootstrap Components
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
 function Dashboard() {

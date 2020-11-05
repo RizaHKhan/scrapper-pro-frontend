@@ -19,12 +19,12 @@ Axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
 
 function App() {
   const initialState = {
-    loggedIn: Boolean(localStorage.getItem("scrapper-pro-token")),
+    loggedIn: Boolean(localStorage.getItem('scrapper-pro-token')),
     flashMessages: [],
     user: {
-      id: localStorage.getItem("scrapper-pro-id"),
-      username: localStorage.getItem("scrapper-pro-username"),
-      token: localStorage.getItem("scrapper-pro-token"),
+      id: '1234myid',
+      username: 'khanr',
+      token: 'token3214'
     },
   };
 
@@ -55,7 +55,7 @@ function App() {
   }, [state.loggedIn]);
 
   useEffect(() => {
-    if (state.loggedIn) {
+    if (!state.loggedIn) {
       const ourRequest = Axios.CancelToken.source();
       async function fetchSessionState() {
         try {
@@ -64,6 +64,7 @@ function App() {
               Authorization: `Bearer ${state.user.token}`,
             },
           });
+          console.log(response)
           if (response.status === 400) {
             dispatch({ type: "logout" });
             dispatch({
