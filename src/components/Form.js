@@ -37,13 +37,15 @@ function Register(props) {
       case "updatePassword":
         draft.password.value = action.value;
         return;
+      default: 
+        return
     }
   }
 
   const [state, dispatch] = useImmerReducer(useReducer, initialState);
 
   useEffect(() => {
-    if (!state.isRegistering) return
+    if (!state.isRegistering) return;
     const ourRequest = Axios.CancelToken.source();
     async function registerUser() {
       try {
@@ -60,7 +62,7 @@ function Register(props) {
             value: "Your session has expired, please login again!",
           });
         } else if (response.status === 200) {
-          console.log(response.data);
+          appDispatch({ type: "login", value: response.data });
         }
       } catch (e) {
         dispatch({
