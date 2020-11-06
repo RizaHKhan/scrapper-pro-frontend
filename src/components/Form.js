@@ -43,9 +43,34 @@ function Register(props) {
   const [state, dispatch] = useImmerReducer(useReducer, initialState);
 
   useEffect(() => {
-    console.log(state.username.value);
-    console.log(state.password.value);
-    dispatch({ type: props.type, value: false });
+    if (!state.isRegistering) return
+    const ourRequest = Axios.CancelToken.source();
+    async function registerUser() {
+      try {
+        const response = await Axios.post("/api/register", {
+          username: state.username.value,
+          password: state.password.value,
+        });
+
+        dispatch({ type: props.type, value: false });
+
+        if (response.status === 400) {
+          dispatch({
+            type: "flashMessage",
+            value: "Your session has expired, please login again!",
+          });
+        } else if (response.status === 200) {
+          console.log(response.data);
+        }
+      } catch (e) {
+        dispatch({
+          type: "flashMessage",
+          value: "Unable to verify session state, please login again.",
+        });
+      }
+    }
+    registerUser();
+    return () => ourRequest.cancel();
   }, [state.isRegistering]);
 
   function handleSubmit(e) {
