@@ -9,8 +9,7 @@ function Footer() {
   return (
     <Container className="border-top p-4">
       <Row>
-        <Col className="bg-dark">1</Col>
-        <Col className="bg-light">2</Col>
+        <Col className="text-white text-center">Scrapper Pro 2020</Col>
       </Row>
     </Container>
   );

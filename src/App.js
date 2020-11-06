@@ -14,6 +14,7 @@ import Container from "react-bootstrap/Container";
 import LandingPage from "./views/LandingPage";
 import Dashboard from "./views/Dashboard";
 import FlashMessages from "./components/FlashMessages";
+import LoadingIcon from "./components/LoadingIcon";
 import "./App.css";
 
 Axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
@@ -21,6 +22,7 @@ Axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
 function App() {
   const initialState = {
     loggedIn: Boolean(localStorage.getItem("scrapper-pro-token")),
+    isLoading: false,
     flashMessages: [],
     user: {
       _id: localStorage.getItem("scrapper-pro-id"),
@@ -38,6 +40,8 @@ function App() {
       case "logout":
         draft.loggedIn = false;
         return;
+      case "isLoading":
+        draft.isLoading = action.value;
     }
   }
 
@@ -57,6 +61,7 @@ function App() {
 
   useEffect(() => {
     if (!state.loggedIn) {
+      dispatch({ type: "isLoading", value: true });
       const ourRequest = Axios.CancelToken.source();
 
       async function fetchSessionState() {
@@ -73,11 +78,13 @@ function App() {
               value: "Your session has expired, please login again!",
             });
           }
+          dispatch({ type: "isLoading", value: false });
         } catch (e) {
           dispatch({
             type: "flashMessage",
             value: "Unable to verify session state, please login again.",
           });
+          dispatch({ type: "isLoading", value: false });
         }
       }
       fetchSessionState();
@@ -90,6 +97,7 @@ function App() {
       <DispatchContext.Provider value={dispatch}>
         <BrowserRouter>
           <Container fluid className="bg-dark h-100">
+            {state.isLoading ? <LoadingIcon /> : ""}
             <Switch>
               <Route path="/" exact>
                 {state.loggedIn ? <Dashboard /> : <LandingPage />}

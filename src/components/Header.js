@@ -14,11 +14,11 @@ function Header() {
   }
 
   return (
-    <Navbar className="border-bottom">
+    <Navbar className="border-bottom" collapseOnSelect expand="lg" variant="dark">
       <Navbar.Brand className="text-white">Scrapper Pro</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse className="justify-content-end">
-        <Nav.Link className="text-white" to="/">Home</Nav.Link>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
+        <Nav.Link className="text-white">Contact</Nav.Link>
         <Nav.Link className="text-white" onClick={handleClick}>Logout</Nav.Link>
       </Navbar.Collapse>
     </Navbar>
