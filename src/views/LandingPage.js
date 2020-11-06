@@ -12,11 +12,11 @@ import Form from "../components/Form";
 
 function LandingPage() {
   return (
-    <Container>
+    <Container className="text-white h-100 d-flex flex-column justify-content-between">
       <Row className="mb-4">
         <h1 className="display-1 mx-auto">Scrapper-Pro</h1>
       </Row>
-      <Row>
+      <Row className="my-auto">
         <Col md={12} lg={6}>
           <p className="display-4">Your data just a click away</p>
           <p className="lead">

@@ -8,6 +8,7 @@ import StateContext from "./StateContext";
 // Third party
 import "bootstrap/dist/css/bootstrap.min.css";
 import Axios from "axios";
+import Container from "react-bootstrap/Container";
 
 // Views and Components
 import LandingPage from "./views/LandingPage";
@@ -31,9 +32,7 @@ function App() {
   function ourReducer(draft, action) {
     switch (action.type) {
       case "login":
-        console.log("logging in");
         draft.loggedIn = true;
-        console.log("action data", action.value);
         draft.user = action.value;
         return;
       case "logout":
@@ -90,14 +89,16 @@ function App() {
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
         <BrowserRouter>
-          <Switch>
-            <Route path="/" exact>
-              {state.loggedIn ? <Dashboard /> : <LandingPage />}
-            </Route>
-            <Route path="/dashboard" exact>
-              <Dashboard />
-            </Route>
-          </Switch>
+          <Container fluid className="bg-dark h-100">
+            <Switch>
+              <Route path="/" exact>
+                {state.loggedIn ? <Dashboard /> : <LandingPage />}
+              </Route>
+              <Route path="/about" exact>
+                <Dashboard />
+              </Route>
+            </Switch>
+          </Container>
         </BrowserRouter>
       </DispatchContext.Provider>
     </StateContext.Provider>

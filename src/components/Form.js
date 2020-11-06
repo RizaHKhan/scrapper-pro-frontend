@@ -26,7 +26,7 @@ function Register(props) {
   function useReducer(draft, action) {
     switch (action.type) {
       case "Login":
-        draft.isLoggingIn = true;
+        draft.isLoggingIn = action.value;
         return;
       case "Register":
         draft.isRegistering = action.value;
@@ -43,6 +43,37 @@ function Register(props) {
   }
 
   const [state, dispatch] = useImmerReducer(useReducer, initialState);
+
+  useEffect(() => {
+    if (!state.isLoggingIn) return;
+    const ourRequest = Axios.CancelToken.source();
+    async function registerUser() {
+      try {
+        const response = await Axios.post("/api/login", {
+          username: state.username.value,
+          password: state.password.value,
+        });
+
+        dispatch({ type: props.type, value: false });
+
+        if (response.status === 400) {
+          dispatch({
+            type: "flashMessage",
+            value: "Your session has expired, please login again!",
+          });
+        } else if (response.status === 200) {
+          appDispatch({ type: "login", value: response.data });
+        }
+      } catch (e) {
+        dispatch({
+          type: "flashMessage",
+          value: "Unable to verify session state, please login again.",
+        });
+      }
+    }
+    registerUser();
+    return () => ourRequest.cancel();
+  }, [state.isLoggingIn]);
 
   useEffect(() => {
     if (!state.isRegistering) return;
@@ -83,7 +114,7 @@ function Register(props) {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicEmail">
-        <Form.Label>Username</Form.Label>
+        <Form.Label className="text-muted">Username</Form.Label>
         <Form.Control
           type="text"
           placeholder="Enter Username"
@@ -93,7 +124,7 @@ function Register(props) {
         />
       </Form.Group>
       <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
+        <Form.Label className="text-muted">Password</Form.Label>
         <Form.Control
           type="password"
           placeholder="Password"
