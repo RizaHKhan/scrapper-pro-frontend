@@ -12,7 +12,7 @@ import Form from "../components/Form";
 
 function LandingPage() {
   return (
-    <Container className="text-white h-100 d-flex flex-column justify-content-between">
+    <Container className="text-white h-100 d-flex flex-column justify-content-between my-auto">
       <Row className="mb-4">
         <h1 className="display-1 mx-auto">Scrapper-Pro</h1>
       </Row>
@@ -35,10 +35,10 @@ function LandingPage() {
         <Col md={12} lg={4} className="p-4 rounded border bg-light">
           <Tabs defaultActiveKey="login">
             <Tab eventKey="login" title="Login">
-              <Form type={"Login"}/>
+              <Form type={"Login"} />
             </Tab>
             <Tab eventKey="register" title="Register">
-              <Form type={"Register"}/>
+              <Form type={"Register"} />
             </Tab>
           </Tabs>
         </Col>
