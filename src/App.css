@@ -3,6 +3,10 @@
   background-color: #343a40 !important;
 }
 
+.main-container {
+  height: 100%;
+}
+
 .spinner-container {
   position: fixed;
   top: 50%;
@@ -21,5 +25,9 @@
 }
 
 a, a:hover {
- color: white; 
+ color: white;
+}
+
+th {
+  border: 0 !important;
 }
