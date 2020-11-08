@@ -25,7 +25,6 @@ function Scripts() {
         });
         console.log(response.data);
         setScripts(response.data);
-        // Deal with response here
       } catch (e) {
         // Deal with catch error here
       }
@@ -35,7 +34,7 @@ function Scripts() {
   }, []);
 
   return (
-    <Container className="p-4 text-white">
+    <Container className="py-4 px-0 text-white">
       {scripts.map((script) => {
         return (
           <ListItem title={script.title} id={script._id} description={script.description} inputs={script.inputs} key={script._id} />
