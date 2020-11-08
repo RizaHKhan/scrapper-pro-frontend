@@ -96,7 +96,7 @@ function App() {
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
         <BrowserRouter>
-          <Container fluid className="bg-dark h-100">
+          <Container className="bg-dark main-container">
             {state.isLoading ? <LoadingIcon /> : ""}
             <Switch>
               <Route path="/" exact>
