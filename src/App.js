@@ -103,7 +103,7 @@ function App() {
                 {state.loggedIn ? <Dashboard /> : <LandingPage />}
               </Route>
               <Route path="/about" exact>
-                <Dashboard />
+                <About />
               </Route>
             </Switch>
           </Container>
