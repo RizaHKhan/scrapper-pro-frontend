@@ -28,6 +28,7 @@ function App() {
       _id: localStorage.getItem("scrapper-pro-id"),
       username: localStorage.getItem("scrapper-pro-username"),
       token: localStorage.getItem("scrapper-pro-token"),
+      admin: null,
     },
   };
 

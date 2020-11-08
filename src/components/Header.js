@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import DispatchContext from '../DispatchContext'
+import StateContext from '../StateContext'
 
 // Bootstrap Components
 import Navbar from "react-bootstrap/Navbar";
@@ -7,6 +8,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 
 function Header() {
+  const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
 
   function handleClick() {

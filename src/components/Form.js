@@ -53,7 +53,7 @@ function Register(props) {
           username: state.username.value,
           password: state.password.value,
         });
-
+        console.log(response.data)
         dispatch({ type: props.type, value: false });
 
         if (response.status === 400) {
