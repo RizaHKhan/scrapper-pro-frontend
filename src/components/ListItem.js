@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import StateContext from "../StateContext";
 
 // Bootstrap Component
 import Container from "react-bootstrap/Container";
@@ -11,6 +12,7 @@ import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
 function ListItem(props) {
+  const appState = useContext(StateContext);
   const [script, setScript] = useState(props.script);
 
   return (
@@ -26,7 +28,9 @@ function ListItem(props) {
                 return (
                   <Form>
                     <Form.Group>
-                      <Form.Label className="text-muted text-uppercase">{input}</Form.Label>
+                      <Form.Label className="text-muted text-uppercase">
+                        {input}
+                      </Form.Label>
                       <Form.Control
                         className="text-uppercase"
                         type="text"
@@ -40,8 +44,14 @@ function ListItem(props) {
         </Col>
       </Row>
       <button className="btn btn-primary btn-sm mr-1">Run</button>
-      <button className="btn btn-warning btn-sm mr-1">Remove</button>
-      <button className="btn btn-danger btn-sm mr-1">Delete</button>
+      {appState.user.admin ? (
+        <>
+          <button className="btn btn-warning btn-sm mr-1">Remove</button>
+          <button className="btn btn-danger btn-sm mr-1">Delete</button>
+        </>
+      ) : (
+        ""
+      )}
     </ListGroup.Item>
   );
 }

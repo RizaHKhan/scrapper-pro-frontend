@@ -64,7 +64,6 @@ function App() {
     if (!state.loggedIn) {
       dispatch({ type: "isLoading", value: true });
       const ourRequest = Axios.CancelToken.source();
-
       async function fetchSessionState() {
         try {
           const response = await Axios.get("/api/checkToken", {
