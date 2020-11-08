@@ -23,7 +23,6 @@ function Scripts() {
             Authorization: `Bearer ${appState.user.token}`,
           },
         });
-        console.log(response.data);
         setScripts(response.data);
       } catch (e) {
         // Deal with catch error here
@@ -37,7 +36,13 @@ function Scripts() {
     <Container className="py-4 px-0 text-white">
       {scripts.map((script) => {
         return (
-          <ListItem title={script.title} id={script._id} description={script.description} inputs={script.inputs} key={script._id} />
+          <ListItem
+            title={script.title}
+            id={script._id}
+            description={script.description}
+            inputs={script.inputs}
+            key={script._id}
+          />
         );
       })}
     </Container>
