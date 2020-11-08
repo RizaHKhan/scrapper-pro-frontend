@@ -13,10 +13,6 @@ import ListGroup from "react-bootstrap/ListGroup";
 function ListItem(props) {
   const [script, setScript] = useState(props.script);
 
-  useEffect(() => {
-    console.log("penis", script);
-  }, []);
-
   return (
     <ListGroup.Item className="bg-dark border-bottom">
       <pre>{script}</pre>
@@ -30,8 +26,9 @@ function ListItem(props) {
                 return (
                   <Form>
                     <Form.Group>
-                      <Form.Label className="text-muted">{input}</Form.Label>
+                      <Form.Label className="text-muted text-uppercase">{input}</Form.Label>
                       <Form.Control
+                        className="text-uppercase"
                         type="text"
                         placeholder={input}
                       />
