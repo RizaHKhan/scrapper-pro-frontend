@@ -10,31 +10,12 @@ import ListItem from "./ListItem";
 // Import 3rd part components
 import Axios from "axios";
 
-function Scripts() {
-  const [scripts, setScripts] = useState([]);
+function Scripts(props) {
   const appState = useContext(StateContext);
-
-  useEffect(() => {
-    const ourRequest = Axios.CancelToken.source();
-    async function getAllScripts() {
-      try {
-        const response = await Axios.get("/api/all-scripts", {
-          headers: {
-            Authorization: `Bearer ${appState.user.token}`,
-          },
-        });
-        setScripts(response.data);
-      } catch (e) {
-        // Deal with catch error here
-      }
-    }
-    getAllScripts();
-    return () => ourRequest.cancel();
-  }, []);
 
   return (
     <Container className="py-4 px-0 text-white">
-      {scripts.map((script) => {
+      {props.scripts.map((script) => {
         return (
           <ListItem
             title={script.title}

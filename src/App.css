@@ -3,10 +3,6 @@
   background-color: #343a40 !important;
 }
 
-.main-container {
-  height: 100%;
-}
-
 .spinner-container {
   position: fixed;
   top: 50%;

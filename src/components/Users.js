@@ -10,45 +10,9 @@ import ListGroup from "react-bootstrap/ListGroup";
 // 3rd party components
 import Axios from "axios";
 
-function Users() {
-  const [users, setUsers] = useState([]);
+function Users(props) {
   const appState = useContext(StateContext);
   const appDispatch = useContext(DispatchContext);
-
-  useEffect(() => {
-    if (!appState.user.admin) return;
-    const ourRequest = Axios.CancelToken.source();
-    async function fetchAllUsers() {
-      try {
-        const response = await Axios.get("/api/all-users", {
-          headers: {
-            Authorization: `Bearer ${appState.user.token}`,
-          },
-        });
-        console.log("sup", response.data);
-        setUsers(response.data);
-        if (response.status === 400) {
-          appDispatch({
-            type: "flashMessage",
-            value: "Your session has expired, please login again!",
-          });
-          return;
-        }
-      } catch (e) {
-        appDispatch({
-          type: "flashMessage",
-          value: "Unable to verify session state, please login again.",
-        });
-        appDispatch({ type: "isLoading", value: false });
-      }
-    }
-    fetchAllUsers();
-    return () => ourRequest.cancel();
-  }, []);
-
-  function handleClick() {
-    console.log("called");
-  }
 
   return (
     <Container className="pt-2 p-0 scroll-auto">
@@ -57,7 +21,7 @@ function Users() {
           <th>User</th>
           <th>Scripts</th>
         </thead>
-        {users.map((user) => {
+        {props.users.map((user) => {
           return (
             <tbody key={user._id}>
               <tr>
@@ -75,10 +39,7 @@ function Users() {
                               className="text-dark d-flex justify-content-between"
                             >
                               <p className="my-auto">{script}</p>
-                              <button
-                                className="btn btn-warning btn-sm"
-                                onClick={handleClick}
-                              >
+                              <button className="btn btn-warning btn-sm">
                                 Remove
                               </button>
                             </ListGroup.Item>

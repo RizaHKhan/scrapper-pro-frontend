@@ -13,8 +13,10 @@ import Container from "react-bootstrap/Container";
 // Views and Components
 import LandingPage from "./views/LandingPage";
 import Dashboard from "./views/Dashboard";
+import Contact from "./views/Contact";
 import FlashMessages from "./components/FlashMessages";
 import LoadingIcon from "./components/LoadingIcon";
+import About from "./components/About";
 import "./App.css";
 
 Axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
@@ -43,6 +45,9 @@ function App() {
         return;
       case "isLoading":
         draft.isLoading = action.value;
+        return;
+      default:
+        return;
     }
   }
 
@@ -61,42 +66,48 @@ function App() {
   }, [state.loggedIn]);
 
   useEffect(() => {
-    if (!state.loggedIn) {
-      dispatch({ type: "isLoading", value: true });
-      const ourRequest = Axios.CancelToken.source();
-      async function fetchSessionState() {
-        try {
-          const response = await Axios.get("/api/checkToken", {
-            headers: {
-              Authorization: `Bearer ${state.user.token}`,
-            },
-          });
-          if (response.status === 400) {
-            dispatch({ type: "logout" });
-            dispatch({
-              type: "flashMessage",
-              value: "Your session has expired, please login again!",
-            });
-          }
-          dispatch({ type: "isLoading", value: false });
-        } catch (e) {
+    dispatch({ type: "isLoading", value: true });
+    const ourRequest = Axios.CancelToken.source();
+    async function fetchSessionState() {
+      try {
+        const response = await Axios.get("/api/checkToken", {
+          headers: {
+            Authorization: `Bearer ${state.user.token}`,
+          },
+        });
+        if (response.status === 400) {
+          dispatch({ type: "logout" });
           dispatch({
             type: "flashMessage",
-            value: "Unable to verify session state, please login again.",
+            value: "Your session has expired, please login again!",
           });
-          dispatch({ type: "isLoading", value: false });
+          return;
         }
+        dispatch({ type: "login", value: response.data });
+        dispatch({ type: "isLoading", value: false });
+      } catch (e) {
+        dispatch({
+          type: "flashMessage",
+          value: "Unable to verify session state, please login again.",
+        });
+        dispatch({ type: "isLoading", value: false });
       }
-      fetchSessionState();
-      return () => ourRequest.cancel();
     }
+    fetchSessionState();
+    return () => ourRequest.cancel();
   }, []);
 
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
         <BrowserRouter>
-          <Container className="bg-dark main-container">
+          <Container
+            className={`bg-dark ${
+              state.isLoggedIn
+                ? ""
+                : "h-100 d-flex flex-column justify-content-center"
+            }`}
+          >
             {state.isLoading ? <LoadingIcon /> : ""}
             <Switch>
               <Route path="/" exact>
@@ -104,6 +115,9 @@ function App() {
               </Route>
               <Route path="/about" exact>
                 <About />
+              </Route>
+              <Route path="/contact" exact component={Contact}>
+                <Contact />
               </Route>
             </Switch>
           </Container>

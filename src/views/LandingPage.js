@@ -12,7 +12,7 @@ import Form from "../components/Form";
 
 function LandingPage() {
   return (
-    <Container className="text-white h-100 d-flex flex-column justify-content-between my-auto">
+    <Container className="text-white">
       <Row className="mb-4">
         <h1 className="display-1 mx-auto">Scrapper-Pro</h1>
       </Row>
