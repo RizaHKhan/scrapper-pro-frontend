@@ -25,12 +25,7 @@ function Dashboard() {
     const ourRequest = Axios.CancelToken.source();
     async function getData() {
       try {
-        const response = await Axios.get(`/api/all-${tab}`, {
-          headers: {
-            Authorization: `Bearer ${appState.user.token}`,
-          },
-        });
-        console.log(response.data);
+        const response = await Axios.get(`/api/${tab}`);
         setData(response.data);
       } catch (e) {
         console.log("unexpected error", e);

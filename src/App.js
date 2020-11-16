@@ -20,6 +20,9 @@ import About from "./components/About";
 import "./App.css";
 
 Axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
+Axios.defaults.headers["Authorization"] = `Bearer ${localStorage.getItem(
+  "scrapper-pro-token"
+)}`;
 
 function App() {
   const initialState = {
@@ -30,24 +33,19 @@ function App() {
       _id: localStorage.getItem("scrapper-pro-id"),
       username: localStorage.getItem("scrapper-pro-username"),
       token: localStorage.getItem("scrapper-pro-token"),
-      admin: null,
     },
   };
 
-  function ourReducer(draft, action) {
-    switch (action.type) {
+  function ourReducer(draft, { type, value }) {
+    switch (type) {
       case "login":
-        draft.loggedIn = true;
-        draft.user = action.value;
-        return;
+        return { ...draft, loggedIn: true, user: value };
       case "logout":
-        draft.loggedIn = false;
-        return;
+        return { ...draft, loggedIn: false };
       case "isLoading":
-        draft.isLoading = action.value;
-        return;
+        return { ...draft, isLoading: value };
       default:
-        return;
+        return draft;
     }
   }
 

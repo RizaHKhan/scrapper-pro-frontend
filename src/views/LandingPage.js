@@ -8,7 +8,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 
 // Components
-import Form from "../components/Form";
+import FormComponent from "../components/FormComponent";
 
 function LandingPage() {
   return (
@@ -35,10 +35,10 @@ function LandingPage() {
         <Col md={12} lg={4} className="p-4 rounded border bg-light">
           <Tabs defaultActiveKey="login">
             <Tab eventKey="login" title="Login">
-              <Form type={"Login"} />
+              <FormComponent type={"login"} />
             </Tab>
             <Tab eventKey="register" title="Register">
-              <Form type={"Register"} />
+              <FormComponent type={"register"} />
             </Tab>
           </Tabs>
         </Col>

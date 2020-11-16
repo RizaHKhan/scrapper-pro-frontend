@@ -8,6 +8,7 @@ import StateContext from "../StateContext";
 // Bootstrap Components
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import Button from "react-bootstrap/Button";
 
 function Header() {
   const appState = useContext(StateContext);
@@ -35,9 +36,12 @@ function Header() {
         <Link to="/contact" className="nav-link p-0 ml-2">
           Contact
         </Link>
-        <Nav.Link className="text-white p-0 ml-2" onClick={handleClick}>
+        <Button
+          className="btn-warning btn-sm text-white ml-2 text-dark"
+          onClick={handleClick}
+        >
           Logout
-        </Nav.Link>
+        </Button>
       </Navbar.Collapse>
     </Navbar>
   );

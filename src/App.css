@@ -27,3 +27,11 @@ a, a:hover {
 th {
   border: 0 !important;
 }
+
+.nav-link {
+  color: black;
+}
+
+.nav-tabs .nav-link:hover {
+  color: rgba(0,0,0,.5);
+}
